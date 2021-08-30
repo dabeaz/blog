@@ -17,7 +17,7 @@ There are a number of interesting things about using Github.  First, it's very m
 
 ## Discussion
 
-No comments.
+- I like this idea so much that I couldn't resist trying out the 'pull request comment' workflow. It makes it feel almost like a collaborative blog project because you're editing the blog post itself. You could even have meta discussions on the pull request itself.
 
 
 
