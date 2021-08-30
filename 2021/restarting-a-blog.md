@@ -20,5 +20,6 @@ There are a number of interesting things about using Github.  First, it's very m
 > **lonkeknol - 30 Aug 2021:**
 > I like this idea so much that I couldn't resist trying out the 'pull request comment' workflow. It makes it feel almost like a collaborative blog project because you're editing the blog post itself. You could even have meta discussions on the pull request itself.
 
-
+> **ahopkins - 30 Aug 2021:**
+> Agreed. Kudos to you. 👏 This is totally going to catch on. Why aren't more people doing this? Or, maybe they are and I am just blind to it. Good luck Dave.
 
