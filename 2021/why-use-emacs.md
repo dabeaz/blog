@@ -39,7 +39,7 @@ Anyways, I wrote this blog post in VSCode. I'll report back later with further p
 
 ## Discussion
 
-No comments.
+No comments.  Want to make a comment?  Hit '.' to edit this page. Then submit a pull request. 
 
 
 
