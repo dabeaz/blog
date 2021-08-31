@@ -81,7 +81,7 @@ NameError: name 'TODO' is not defined
 >>> 
 ```
 
-Perfect.  That's exactly what I want.  A crash--it gets my attention. So does the fact that `TODO` is undefined variable.  It lights up code linters and IDEs like a colorful holiday display.  A not-so-gentle reminder that you'd better get around to implementing "sit" and "stay" sooner rather than later.  
+Perfect.  That's exactly what I want.  A crash--it gets my attention. So does the fact that `TODO` is an undefined variable.  It lights up code linters and IDEs like a colorful holiday display.  A not-so-gentle reminder that you'd better get around to implementing "sit" and "stay" sooner rather than later.  
 
 As you work on your puppy, maybe you realize that you could just give your puppy a nice name.  Let's call her "Mabel."
 
