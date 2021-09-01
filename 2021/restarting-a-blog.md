@@ -1,3 +1,5 @@
+[[topic list](../README.md)]
+
 # Restarting A Blog
 
 Author: David Beazley ([@dabeaz](https://www.dabeaz.com))

@@ -1,9 +1,11 @@
+[[topic list](../README.md)]
+
 # Why TODO might be better than an Abstract Base Class
 
 Author: David Beazley ([@dabeaz](https://www.dabeaz.com)),
 August 31, 2021
 
-A highly underrated programming technique is the power of wishful thinking.  Too often, we're inclined to solve problems using only the tools at hand.  Thus, when the kids ask you for a puppy, they get disappointed when you hand them ZipPandaTurtle and say "look, it's fast, furry and it can turn left."
+A highly underrated programming technique is the power of wishful thinking.  Too often, we're inclined to solve problems using only the tools we're given.  Thus, when the kids ask you for a puppy, they get disappointed when you hand them ZipPandaTurtle and say "look, it's fast, furry and it can turn left."
 
 No, in such situations, it's often more empowering to just make stuff up.  If you want a puppy, make one:
 
@@ -22,9 +24,9 @@ class Puppy:
         ...
 ```
 
-Of course, the devil is in the details.  What do you mean just "make one?"  I have no idea how to make a puppy.  That's a fair point, but I might have some idea about the commands that I'd actually give a puppy.  Call this the puppy "interface" if you wish.
+Of course, the devil is in the details.  What do you mean by "just make one?"  I have no idea how to make a puppy.  That's a fair point, but I might have some ideas about the commands that I'd actually give to a puppy.  Call it a puppy "interface" if you wish.
 
-Aha!  Interfaces!  Clearly, this is the right place to introduce an abstract base class:
+Aha!  Interfaces!  Clearly, this must be the right place to introduce an abstract base class:
 
 ```
 from abc import ABC, abstactmethod
@@ -47,11 +49,11 @@ class AbstractPuppy(ABC):
         pass
 ```
 
-No! No! No! WHAT are you doing here?   The minute you do this, you're opening yourself up to all sorts of horrible dystopian futures.  For example, are we now talking about the possibility of having multiple puppies? (HELL NO).   Also, if some lunatic walks in off the street with a duck that can carry out all of the required commands, are we going to allow them to claim that it's as good as a puppy by using `AbstractPuppy.register()`?  No, we're not.  Stop it!
+No! No! No! WHAT are you doing?   The minute you do this, you're opening yourself up to all sorts of dystopian coding futures.  For example, are we now considering the possibility of having multiple puppies? (HELL NO).   Also, if some lunatic walks in off the street with a duck that can carry out all of the required commands, are we going to allow them to claim that it's as good as a puppy by using `AbstractPuppy.register()`?  No, we're not.  Stop it!
 
 But doesn't an abstract base class give you some kind of extra protection?   For example, if you don't implement all of the required methods, you can't even create an instance.  So, naturally you're only going to get a puppy if it's born into this world already knowing all of those commands.  "Sorry kids, that's just how it works." 
 
-Maybe a more sensible approach is to simply accept the reality of puppies.  Start with a basic class like this:
+Maybe a more sensible approach is to simply accept the reality of puppies.  Start with a plain class like this:
 
 ```
 class Puppy:
@@ -81,9 +83,9 @@ NameError: name 'TODO' is not defined
 >>> 
 ```
 
-Perfect.  That's exactly what I want.  A crash--it gets my attention. So does the fact that `TODO` is an undefined variable.  It lights up code linters and IDEs like a colorful holiday display.  A not-so-gentle reminder that you'd better get around to implementing "sit" and "stay" sooner rather than later.  
+Perfect!  That's exactly what I want.  A crash--it gets my attention. So does the fact that `TODO` is an undefined variable.  It lights up code linters and IDEs like warning lights in a construction zone.  A not-so-gentle reminder that you'd better get around to implementing "sit" and "stay" sooner rather than later.  
 
-As you work on your puppy, maybe you realize that you could just give your puppy a nice name.  Let's call her "Mabel."
+As you work on your puppy, you might realize that you could just give your puppy a nice name.  Let's call her "Mabel."
 
 ```
 class Mabel:
@@ -116,9 +118,9 @@ def walk(mabel):
 
 Now, if you come home and find your whole code base covered with the former stuffing from a donut plush toy, you'll know who did it.  "Mabel! Bad dog!"
 
-Anyways, the idea of just sticking a `TODO` in a plain class is something that a student suggested to me recently.   It's since grown on me.   In many cases, the whole reason why you've written a class is that you're trying to work out some problem/design details.  Maybe it makes sense to have a puppy--a singular puppy, not a whole framework of puppies.  Thus, why make the code much more complicated than it needs to be?
+Anyways, the idea of just sticking a `TODO` in a plain class is something that a student suggested to me recently.   It's since grown on me.   In many cases, the whole reason why you've written a class is that you're trying to work out some problem detail.  Maybe it makes sense to have a puppy--a singular puppy, not a whole framework of puppies.  Thus, why make the code much more complicated than it needs to be?
 
-I concur. In the end, you're probably not even going to need that abstract base class.   Should the situation change, you can always add it later.  In the meantime, go outside and play frisbee with Mabel. 
+I concur. In the end, you're probably not even going to need that abstract base class.   Should the situation change, you can always add it later--perhaps as a protocol.  In the meantime, go outside and play frisbee with Mabel. 
 
 ## Discussion
 

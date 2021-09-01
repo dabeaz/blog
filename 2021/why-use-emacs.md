@@ -1,3 +1,5 @@
+[[topic list](../README.md)]
+
 # Why I use emacs (and can I stop?)
 
 Author: David Beazley ([@dabeaz](https://www.dabeaz.com))
