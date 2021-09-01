@@ -1,5 +1,3 @@
-[[topic list](../README.md)]
-
 # Why TODO might be better than an Abstract Base Class
 
 Author: David Beazley ([@dabeaz](https://www.dabeaz.com)),
