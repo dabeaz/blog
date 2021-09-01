@@ -6,17 +6,7 @@ Hi, I'm [Dave](https://dabeaz.com).  This is my blog about various programming r
 * [Talks](https://dabeaz.com/talks.html)
 * [Practical Python Course](https://dabeaz-course.github.io/practical-python)
 
-After a multi-year hiatus from blogging, this is a bit of an experiment in hosting a blog solely in the form of a GitHub repo.  
-
-## Notifications
-
-New posts will be made via a "release".  You can be notification as follows:
-
-* [Follow @dabeaz on Twitter](https://twitter.com/dabeaz)
-* [Subscribe to the repo's release RSS feed](https://github.com/dabeaz/blog/releases.atom)
-* Watch the repo's releases (click Watch -> Custom -> Releases -> Apply)
-
-Posts are listed below in reverse chronological order. 
+After a multi-year hiatus from blogging, this is a bit of an experiment in hosting a blog solely in the form of a GitHub repo.  Posts are in reverse chronological order.
 
 ## 2021
 
@@ -24,5 +14,14 @@ Posts are listed below in reverse chronological order.
 * [Why I Use Emacs (and can I stop?)](2021/why-use-emacs.md) (August 29, 2021)
 * [Restarting a blog](2021/restarting-a-blog.md) (August 29, 2021)
 
+## Notifications
+
+New posts are made via a "release".  You can be notified as follows:
+
+* [Follow @dabeaz on Twitter](https://twitter.com/dabeaz)
+* [Subscribe to the repo's release RSS feed](https://github.com/dabeaz/blog/releases.atom)
+* Watch the repo's releases (click Watch -> Custom -> Releases -> Apply)
+
 ## Feedback
+
 If you see a typo or want to make a comment on something, submit a pull request.  You might even be able to do it from GitHub itself (press '.' to bring up an editor while viewing the repository).
