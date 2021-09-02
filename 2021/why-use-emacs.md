@@ -39,9 +39,10 @@ Anyways, I wrote this blog post in VSCode. I'll report back later with further p
 
 ## Discussion
 
-No comments.  Want to make a comment?  Hit '.' to edit this page. Then submit a pull request. 
+Want to make a comment?  Hit '.' to edit this page. Then submit a pull request. 
 
-
+### Emacs -> Vim -> VSCode
+Roni here! I started out using Emacs in January 2000 (the same year I started using Linux). Then, when I started at Kitware in 2012, I thought I'd like a change and switched over to Vim. Now it's 2021 and all the cool kids are using VSCode, so I finally took the plunge and discovered that its integrated LSP support is pretty sweet. I'm feeling that slow slide away from Vim now, even though it wrecks some of my "old man" appeal.
 
 
 
