@@ -7,7 +7,7 @@ A highly underrated programming technique is the power of wishful thinking.  Too
 
 No, in such situations, it's often more empowering to just make stuff up.  If you want a puppy, make one:
 
-```
+```python
 class Puppy:
     def sit(self):
         ...
@@ -26,7 +26,7 @@ Of course, the devil is in the details.  What do you mean by "just make one?"  I
 
 Aha!  Interfaces!  Clearly, this must be the right place to introduce an abstract base class:
 
-```
+```python
 from abc import ABC, abstactmethod
 
 class AbstractPuppy(ABC):
@@ -53,7 +53,7 @@ But doesn't an abstract base class give you some kind of extra protection?   For
 
 Maybe a more sensible approach is to simply accept the reality of puppies.  Start with a plain class like this:
 
-```
+```python
 class Puppy:
     def sit(self):
         TODO
@@ -70,7 +70,7 @@ class Puppy:
 
 Wait, what is that `TODO` just stuck in there?  That's a programming error!  If you create a `Puppy` and try one of the commands your puppy will crash.  
 
-```
+```python
 >>> spot = Puppy()
 >>> spot.sit()
 Traceback (most recent call last):
@@ -85,7 +85,7 @@ Perfect!  That's exactly what I want.  A crash--it gets my attention. So does th
 
 As you work on your puppy, you might realize that you could just give your puppy a nice name.  Let's call her "Mabel."
 
-```
+```python
 class Mabel:
     def sit(self):
         ...
@@ -102,14 +102,14 @@ class Mabel:
 
 Heck, that even sounds pretty good as a type-hint:
 
-```
+```python
 def walk(what: Mabel):
     ...
 ```
 
 Or better yet, as a descriptive argument name:
 
-```
+```python
 def walk(mabel):
     ...
 ```
