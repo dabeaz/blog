@@ -36,7 +36,7 @@ TypeError: Can't instantiate abstract class Stream with abstract method receive
 >>> 
 ```
 
-However, what exactly is an "interface?"   Surely, the method names are important, but what about the parameter names?  For example:
+However, what constitutes an "interface?"   Surely, the method names are important, but what about the parameter names?  For example, what if you define this class?
 
 ```python
 class Stream(AbstractStream):
@@ -162,10 +162,9 @@ class ClosedState(StreamState):
 
 In this example, the `StreamState` class is serving as an interface.  You might be inclined to make it an abstract base class.  However, doing so has no useful effect at all.  The checks that an ABC provide only take place at the time instances are created.  In this case, there are no instances--it's all static methods.  So, you're out of luck.
 
-Fortunately, there is a potential fix.  You could define `StreamState` with an extra `__init_subclass__()` method like this:
+This is a potential fix if you define `StreamState` with an extra `__init_subclass__()` method like this:
 
 ```python
-
 import inspect
 
 class StreamState:
@@ -199,7 +198,29 @@ class StreamState:
 
 As it turns out, this is a pretty strong check--much stronger than an abstract base class.  It checks that all of the required methods have been defined and it makes sure that their calling signatures match exactly.   Moreover, these checks occur at the time of class definition--not instance creation.  Thus, your code won't even import or run unless it's defined correctly.
 
-Obviously, you could probably do a bit more to clean up the whole `__init_subclass__()` hook used in this example (better error messages, etc.). However, if you're serious about interfaces, I wonder if something like this could be extended into a much better approach.  Maybe.
+Obviously, you could probably do a bit more to clean up the whole `__init_subclass__()` hook used in this example (better error messages, etc.).
+
+## Is it actually worth it?
+
+I think it's valid to ask if defining an abstract base class is worth the extra ceremony involved.   First, what is the overall purpose of defining such a class in the first place?   If the goal is merely organizational, then defining a normal top-level class conveys the same intent and involves a lot less to think about:
+
+```python
+class AbstractStream:
+    def send(self, data):
+        raise NotImplementedError()
+
+    def receive(self):
+        raise NotImplementedError()
+
+class Stream(AbstractStream):
+    def send(self, data):
+        ...
+
+    def receive(self):
+        ...
+```
+
+If the goal is to have extra error checking, does providing "early error"  detection actually provide much benefit beyond simply raising a runtime exception and letting bad code crash?  That, I don't know (it probably depends the situation).  However, it seems rare that one would write code and never test it by, well, actually running it.  So, it's entirely possible that the purported benefits of an ABC are more theoretical than practical.   In any case, keeping things simple is often a good policy.  If you start off with a simple class, it can always be upgraded to a ABC later.   
 
 ## Discussion
 
