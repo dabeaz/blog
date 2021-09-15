@@ -27,7 +27,7 @@ Of course, the devil is in the details.  What do you mean by "just make one?"  I
 Aha!  Interfaces!  Clearly, this must be the right place to introduce an abstract base class:
 
 ```python
-from abc import ABC, abstactmethod
+from abc import ABC, abstractmethod
 
 class AbstractPuppy(ABC):
     @abstractmethod
