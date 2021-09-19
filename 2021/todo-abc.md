@@ -127,10 +127,7 @@ I concur. In the end, you're probably not even going to need that abstract base 
 > It feels quite wacky to deliberately cause a syntax error when an exception also terminates the code, can contain additional context, and is used elsewhere. This approach even allows you to catch the error with a readable `except NotImplementedError:` statement.
 > \- DomHudson
 
-
-
-
-
+ Want to make a comment?  Edit this page. Then submit a pull request. 
 
 
 
