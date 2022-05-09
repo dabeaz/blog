@@ -122,7 +122,9 @@ I concur. In the end, you're probably not even going to need that abstract base 
 
 ## Discussion
 
-No comments.  Want to make a comment?  Edit this page. Then submit a pull request. 
+@sabyasachi - I like this simple idea! Specially how it doesn't generate a syntax error for the entire program!
+
+Want to make a comment?  Edit this page. Then submit a pull request. 
 
 
 
