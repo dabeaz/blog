@@ -120,9 +120,11 @@ Anyways, the idea of just sticking a `TODO` in a plain class is something that a
 
 I concur. In the end, you're probably not even going to need that abstract base class.   Should the situation change, you can always add it later--perhaps as a protocol.  In the meantime, go outside and play frisbee with Mabel. 
 
+Want to make a comment?  Edit this page. Then submit a pull request. 
+
 ## Discussion
 
-@sabyasachi - I like this simple idea! Specially how it doesn't generate a syntax error for the entire program!
+> **sabyasachi - 09 May 2022:** Like the idea. Simple and useful; it generates error only when TODO part is executed. Rest of the program works just fine.
 
 Want to make a comment?  Edit this page. Then submit a pull request. 
 
