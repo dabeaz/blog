@@ -3,7 +3,7 @@
 Author: David Beazley ([@dabeaz](https://www.dabeaz.com)),
 February 15, 2023
 
-In part of my [Advanced Programming with Python](https://www.dabeaz.com/advprog.html) we
+In part of my [Advanced Programming with Python](https://www.dabeaz.com/advprog.html) course we
 spend a day implementing state machines. Part of that project involves dealing with
 "stateful" objects.   Here's a very simple example, taken from the [Python Cookbook](https://dabeaz.com/cookbook.html):
 
