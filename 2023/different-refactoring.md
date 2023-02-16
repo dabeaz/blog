@@ -108,7 +108,7 @@ effectively swap in new methods when the object changes.  It's a neat trick.
 ## A Different Strategy
 
 Anyways, I'm staring at this code the other day and a stray thought occurs to me--"why does
-the code have to refactored like that?"  Instead of decomposing the code
+the code have to be refactored like that?"  Instead of decomposing the code
 based on the state, maybe you could decompose it by method instead.  Like this:
 
 ```python
