@@ -111,7 +111,7 @@ Anyways, I'm staring at this code the other day and a stray thought occurs to me
 the code have to refactored like that?"  Instead of decomposing the code
 based on the state, maybe you could decompose it by method instead.  Like this:
 
-```
+```python
 class Connection:
     def __init__(self):
         self.state = 'CLOSED'
