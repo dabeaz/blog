@@ -8,6 +8,10 @@ Hi, I'm [Dave](https://dabeaz.com).  This is my blog about various programming r
 
 After a multi-year hiatus from blogging, this is a bit of an experiment in hosting a blog solely in the form of a GitHub repo.  Posts are in reverse chronological order.
 
+## 2023
+
+* [A Different Refactoring](2023/different-refactoring.md) (February 15, 2023)
+
 ## 2021
 
 * [Barely an Interface](2021/barely-interface.md) (September 3, 2021)
