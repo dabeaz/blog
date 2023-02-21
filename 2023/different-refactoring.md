@@ -11,7 +11,7 @@ spend a day implementing state machines. Part of that project involves dealing w
 class Connection:
     def __init__(self):
         self.state = 'CLOSED'
-	    self.bytes_sent = 0
+        self.bytes_sent = 0
 
     def open(self):
         if self.state == 'OPEN':
@@ -34,7 +34,7 @@ class Connection:
     def send(self, data):
         if self.state == 'OPEN':
             print('Sending')
-	    self.bytes_sent += len(data)
+            self.bytes_sent += len(data)
         elif self.state == 'CLOSED':
             raise RuntimeError('Connection closed')
 ```
@@ -70,31 +70,31 @@ class OpenConnection:
 
     @staticmethod
     def close(conn):
-        self.state = ClosedConnection
-        
+        conn.state = ClosedConnection
+
     @staticmethod
     def receive(conn):
         print('Receiving')
 
-    @staticmethod        
+    @staticmethod
     def send(conn, data):
         conn.bytes_sent += len(data)
         print('Sending')
 
 class ClosedConnection:
-    @staticmethod    
+    @staticmethod
     def open(conn):
-        self.state = OpenConnection
+        conn.state = OpenConnection
 
-    @staticmethod        
+    @staticmethod
     def close(conn):
         raise RuntimeError('Connection already closed')
 
-    @staticmethod    
+    @staticmethod
     def receive(conn):
         raise RuntimeError('Connection closed')
 
-    @staticmethod    
+    @staticmethod
     def send(conn, data):
         raise RuntimeError('Connection closed')
 ```
@@ -116,12 +116,12 @@ class Connection:
     def __init__(self):
         self.state = 'CLOSED'
         self.bytes_sent = 0
-        
+
     def open(self):
         return getattr(Open, self.state)(self)
 
     def close(self):
-        return getattr(Close, self.state)(self)        
+        return getattr(Close, self.state)(self)
 
     def receive(self):
         return getattr(Receive, self.state)(self)
@@ -134,35 +134,35 @@ class Open:
     def OPEN(conn):
         raise RuntimeError('Connection already open')
 
-    @staticmethod        
+    @staticmethod
     def CLOSED(conn):
         conn.state = 'OPEN'
 
 class Close:
-    @staticmethod    
+    @staticmethod
     def OPEN(conn):
         conn.state = 'CLOSED'
 
-    @staticmethod        
+    @staticmethod
     def CLOSED(conn):
         raise RuntimeError('Connection already closed')
 
 class Receive:
-    @staticmethod    
+    @staticmethod
     def OPEN(conn):
         print('Receiving')
 
-    @staticmethod        
+    @staticmethod
     def CLOSED(conn):
         raise RuntimeError('Connection closed')
 
 class Send:
-    @staticmethod    
+    @staticmethod
     def OPEN(conn, data):
         conn.bytes_sent += len(data)
         print('Sending')
 
-    @staticmethod        
+    @staticmethod
     def CLOSED(conn, data):
         raise RuntimeError('Connection closed')
 ```
@@ -172,7 +172,4 @@ even notice the clever use of `getattr()`.
 
 ## Discussion
 
-No comments.  Want to make a comment?  Edit this page. Then submit a pull request. 
-
-
-
+No comments.  Want to make a comment?  Edit this page. Then submit a pull request.
