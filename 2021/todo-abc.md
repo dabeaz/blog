@@ -123,7 +123,8 @@ I concur. In the end, you're probably not even going to need that abstract base 
 ## Discussion
 
 Rich Stewart 2023-02-21
-Couldn't help noticing that this is close to the Smalltalk community's conventions for abstract classes.  In most Smalltalks, there's a fundamental method, high up in the inheritance hierarchy, called ```subclassResponsibility```.  So, any "abstract" method which ought to be implemented by a derived class sends ```subclassResponsibility``` to ```self```.  If the method is not overridden, and then gets called at runtime, an exception gets raised.
+
+Couldn't help noticing that this is close to the Smalltalk community's conventions for abstract classes.  In most Smalltalks, there's a fundamental method, high up in the inheritance hierarchy, called ```subclassResponsibility```.  So, any "abstract" method which ought to be implemented by a derived class sends ```subclassResponsibility``` to ```self```.  If the method is not overridden, and then gets called at runtime, then ```subclassResponsibility``` is called and raises an exception .
 
 I was writing some Python myself and thinking about this, and cobbled together my own variation on ```subclassResponsibility``` in Python.  It's much less complicated.
 
