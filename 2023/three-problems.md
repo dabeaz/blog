@@ -424,11 +424,11 @@ suppose that there could be arbitrary whitespace around any of the
 parts (which should be ignored).  Here's how you might do it:
 
 ```python
+eq = literal('=')(shift)
+semi = literal(';')(shift)
 letter = filt(str.isalpha)(shift)
 letters = fmap(''.join)(one_or_more(letter))
 whitespace = zero_or_more(filt(str.isspace)(shift))
-eq = literal('=')(shift)
-semi = literal(';')(shift)
 ws = lambda parser: (
         fmap(lambda p: p[1])
         (seq(whitespace, parser, whitespace)))
