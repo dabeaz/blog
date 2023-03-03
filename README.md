@@ -10,6 +10,7 @@ After a multi-year hiatus from blogging, this is a bit of an experiment in hosti
 
 ## 2023
 
+* [Now You Have Three Problems](2023/three-problems.md) (March 3, 2023)
 * [A Different Refactoring](2023/different-refactoring.md) (February 15, 2023)
 
 ## 2021
