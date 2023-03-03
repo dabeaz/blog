@@ -785,13 +785,13 @@ Here's how you use it to parse our little example:
 ```
 
 I'll now try it with my input of 100000 key-value pairs.  It takes 2.3 seconds.
-It's three times slower than the last test--which used the exact same
+It's three times slower than the new approach--which used the exact same
 token stream!  It's even slower than the original "magic" version that
 simply worked with individual characters.  How can this be?
 
-This was not a result I was expecting. An LALR(1) parser is driven
+I was not expecting this result. An LALR(1) parser is driven
 entirely by table-lookup and a state machine.  There is no
-backtracking nor does it involve a deep stack of composed functions.
+deep stack of composed functions.  This might warrant some further study.
 
 ## Digression: Iteration
 
