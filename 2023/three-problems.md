@@ -15,6 +15,8 @@ spirit of that!
 The code that follows is Python, but it could be adapted to any
 language with support for higher-order functions.
 
+*"Yarko suggests you read all the way through--there's a story in this."* -- Yarko
+
 ## Elementary Particles
 
 If you wander out into the forest and think hard about parsing, you'll
@@ -28,13 +30,13 @@ def shift(inp):
 
 Given an input sequence `inp`, this returns the first item `inp[0]` and all of
 the remaining items `inp[1:]`.   Alternatively, it returns `False` if there's no
-input at all.   It looks weird--almost like a strange string split.  Here's
-how it might be used to step through a string:
+input at all.   It looks weird, but here's how it works to step through the
+characters of a string:
 
 ```pycon
 >>> shift('bar')
 ('b', 'ar')
->>> shift('ar')
+>>> shift('ar')    # Applied to the remaining characters 'ar'
 ('a', 'r')
 >>> shift('r')
 ('r', '')
@@ -68,13 +70,14 @@ that's there.
 
 Both of these functions are instances of what I'll call a "parser."  A
 parser is a function defined by its calling signature and return
-convention.  Specifically, a parser is any function that accepts some input (`inp`) and on
-success, returns a tuple `(value, remaining)` where `value` is some
-value of interest and `remaining` represents all of the remaining
-input still to be parsed. On failure, a parser returns `False`.
+convention.  Specifically, a parser is any function that accepts some
+input (`inp`) and on success, returns a tuple `(value, remaining)`
+where `value` is some value of interest and `remaining` represents all
+of the remaining input still to be parsed. On failure, a parser
+returns `False`.
 
 Although both of these functions are already short, you can make them
-even shorter using `lambda` like this:
+even shorter using `lambda`:
 
 ```python
 shift   = lambda inp: bool(inp) and (inp[0], inp[1:])
@@ -82,8 +85,8 @@ nothing = lambda inp: (None, inp)
 ```
 
 `lambda` has the benefit of making the code compact and foreboding.
-Plus, it prevents people from trying to add type-hints to the
-beautiful thing that is about to unfold.
+Plus, it prevents people from trying to add meaningful names,
+documentation or type-hints to the thing that is about to unfold.
 
 By the way, `lambda` is the third problem.  Shifting nothingness and
 lambda--the three problems.  Let's proceed.
@@ -202,7 +205,7 @@ use `fmap()` to transform values. For example:
 that Python uses to operate on iterables.  I would have used those,
 if not for the resulting naming confusion.  Hence, I've chosen `fmap`
 and `filt` instead. Conceptually, our functions serve a 
-semantically similar purpose however.
+semantically similar purpose.
 
 ## Repetition
 
@@ -263,7 +266,7 @@ combine them back together:
 >>>
 ```
 
-If you want a numeric value instead, add one more `fmap` to the affair:
+If you want a numeric value instead, add one more `fmap`:
 
 ```pycon
 >>> value = fmap(int)(digits)
@@ -272,8 +275,28 @@ If you want a numeric value instead, add one more `fmap` to the affair:
 >>>
 ```
 
-*Exercise:* Rewrite `one_or_more()` using nothing more
- than lambda and recursion.
+*Digression:* Upon showing your coworkers the `one_or_more()`
+function, they're likely to get angry about you not following the
+style guide. "Lambda. You were supposed to use lambda" they'll say.
+Fixing this is not so easy, but you might be able to fool them using
+`functools.wraps()` like this:
+
+```python
+from functools import wraps
+
+@wraps(lambda parser:_)
+def one_or_more(parser):
+    @wraps(lambda inp:_)
+    def parse(inp):
+        ...
+    return parse
+```
+
+At least this way, the function will look like it came from a lambda
+until someone takes the time to actually go digging for its definition.
+
+*Exercise:* Alternatively, you could just rewrite `one_or_more()`
+using nothing more than lambda and recursion.
 
 ## Sequencing
 
@@ -307,7 +330,25 @@ False
 >>> 
 ```
 
-*Exercise:* Write a version of `seq()` that uses recursion and lambda.
+Once you have sequencing, you can write some useful variants. For example,
+sometimes it's useful to select just the left or right part of a pair.
+
+```python
+left = lambda p1, p2: fmap(lambda p: p[0])(seq(p1, p2))
+right = lambda p1, p2: fmap(lambda p: p[1])(seq(p1, p2))
+```
+
+Here's an example:
+
+```pycon
+>>> left(letter, digit)('a4')
+('4', '')
+>>> right(letter, digit)('a4')
+('4', '')
+>>>
+```
+
+*Exercise:* Write a version of `seq()` that uses lambda.
 
 ## Choice
 
@@ -424,17 +465,14 @@ suppose that there could be arbitrary whitespace around any of the
 parts (which should be ignored).  Here's how you might do it:
 
 ```python
-eq = literal('=')(shift)
-semi = literal(';')(shift)
 letter = filt(str.isalpha)(shift)
 letters = fmap(''.join)(one_or_more(letter))
-whitespace = zero_or_more(filt(str.isspace)(shift))
-ws = lambda parser: (
-        fmap(lambda p: p[1])
-        (seq(whitespace, parser, whitespace)))
-name = ws(letters)
-value = ws(number)
-keyvalue = fmap(lambda p: (p[0], p[2]))(seq(name, eq, value, semi))
+ws = zero_or_more(filt(str.isspace)(shift))
+eq = left(literal('=')(shift), ws)
+semi = left(literal(';')(shift), ws)
+name = left(letters, ws)
+value = left(number, ws)
+keyvalue = seq(left(name, eq), left(value, semi))
 ```
 
 Let's try it out:
@@ -447,9 +485,9 @@ Let's try it out:
 >>>
 ```
 
-The handling of whitespace might require a bit of study. The key
-is the `ws()` function that accepts a parser and creates a new
-parser that accepts and discards any leading/trailing whitespace.
+The handling of whitespace might require a bit of study. The key is
+the use of the `left()` function to accept, but discard trailing
+whitespace.
 
 ## Example: Building a dictionary
 
@@ -598,7 +636,7 @@ And here's how it worked:
 This is not an efficient way to process text in Python. In fact, it's
 probably the worst way to process text that you could devise.  When
 running a test on my machine, parsing a string with 100000 key-value pairs
-into a dictionary takes more than 2 minutes!
+into a dictionary takes almost 2.5 minutes!
 
 The central problem is the memory copy that takes place when computing
 `inp[1:]`.  In fact, every call to `shift()` makes a nearly
@@ -665,7 +703,7 @@ that I would later change into class.  Maybe I'm just doing that
 as a way to say "Phffffft!!!" to PEP-8.  Who is to say?
 
 Nevertheless, when tested on the same 100000 key-value pair input as before,
-the parsing time drops from more than 2 minutes to 2 seconds.
+the parsing time drops from more than 2.5 minutes to about 2.3 seconds.
 That's pretty amazing.   We solved our performance problem by changing the
 input representation and adjusting only one line of code.
 
@@ -734,7 +772,7 @@ Let's verify that it works:
 >>>
 ```
 
-When run on my large test input, this version runs in about 0.8
+When run on my large test input, this version runs in about 0.9
 seconds, about 2.5 times faster than it did before.
 
 ## Kaboom!
@@ -742,11 +780,11 @@ seconds, about 2.5 times faster than it did before.
 I got to thinking about the countless hours I spent micro-optimizing
 the LALR(1) parser in some of my other tools like
 [PLY](https://github.com/dabeaz/ply) and
-[SLY](https://github.com/dabeaz/sly).   Seriously, I spent a **LOT**
-of time staring at that code trying to remove every last bit
-of performance overhead I could think to identify.  As such, these
-tools have long been one of the fastest pure-Python parser implementations around.
-How would this new approach compare to THAT?
+[SLY](https://github.com/dabeaz/sly).  Seriously, I spent a **LOT** of
+time staring at that code trying to remove every last bit of
+performance overhead I could think to identify.  As such, these tools
+have long been one of the fastest pure-Python parser implementations
+around.  How would this new approach compare to THAT?
 
 To test it out, I specified a similiar KV-pair parser in SLY:
 
@@ -785,13 +823,17 @@ Here's how you use it to parse our little example:
 ```
 
 I'll now try it with my input of 100000 key-value pairs.  It takes 2.3 seconds.
-It's three times slower than the new approach--which used the exact same
-token stream!  It's even slower than the original "magic" version that
+It's three times slower than the last test--which used the exact same
+token stream!  It's even slightly slower than the original "magic" version that
 simply worked with individual characters.  How can this be?
 
-I was not expecting this result. An LALR(1) parser is driven
+This was not a result I was expecting. An LALR(1) parser is driven
 entirely by table-lookup and a state machine.  There is no
-deep stack of composed functions.  This might warrant some further study.
+backtracking nor does it involve a deep stack of composed functions.
+
+As a last resort, I decided to reimplement the whole parser using PLY which
+has a more optimized implementation.  That runs in about 1.2 seconds. It loses
+as well.
 
 ## Digression: Iteration
 
@@ -818,7 +860,7 @@ False
 >>>
 ```
 
-Unfortunately, it doesn't actually work because our parsing framework
+Unfortunately, it doesn't actually work because our parsing approach
 involves backtracking--especially when making decisions in the
 `either()`, `maybe()`, and `choice()` functions.  When processing
 `either()`, parsing may proceed succesfully for some time and then
@@ -826,16 +868,18 @@ suddenly fail.  When this happens, everything rewinds and a different
 parsing branch is attempted.
 
 There's no mechanism to rewind a generic Python iterator.  Although it
-might be possible to copy an iterator or to use some magic from
-`itertools`, doing so seems tricky. For now, I'll leave this as an exercise.
+is sometimes possible to copy an iterator or to use some magic from
+`itertools`, doing so seems tricky.  Worse, making it work requires
+fiddly changes throughout the implementation as opposed to being isolated
+to a single location. For now, I'll leave this as an exercise.
 
 ## The Complete Code
 
-Here's the complete implementation of the basic parsing framework.
-I thought it'd be interesting just to see it all in one place.
+Here's the complete implementation of the basic parsing framework
+written in this post.  I thought it'd be interesting just to see it
+all in one place.
 
 ```python
-
 # -- Parsing framework
 
 def shift(inp):
@@ -868,6 +912,9 @@ def seq(*parsers):
             result.append(value)
         return (result, inp)
     return parse
+
+left = lambda p1, p2: fmap(lambda p: p[0])(seq(p1, p2))
+right = lambda p1, p2: fmap(lambda p: p[1])(seq(p1, p2))
 
 def one_or_more(parser):
     def parse(inp):
@@ -905,18 +952,15 @@ number = choice(decimal, integer)
 letter = filt(str.isalpha)(shift)
 letters = fmap(''.join)(one_or_more(letter))
 
-# Ignore whitespace
-whitespace = zero_or_more(filt(str.isspace)(shift))
-ws = lambda parser: (
-        fmap(lambda p: p[1])
-        (seq(whitespace, parser, whitespace)))
+# Whitespace
+ws = zero_or_more(filt(str.isspace)(shift))
 
-# Name and value tokes (removed whitespace)
-name = ws(letters)
-value = ws(number)
+# Name and value tokens (removed whitespace)
+name = left(letters, ws)
+value = left(number, ws)
 
 # Single key=value; pair
-keyvalue = fmap(lambda p: (p[0], p[2]))(seq(name, eq, value, semi))
+keyvalue = seq(left(name, eq), left(value, semi))
 
 # Multiple key-values
 keyvalues = fmap(dict)(zero_or_more(keyvalue))
@@ -924,7 +968,6 @@ keyvalues = fmap(dict)(zero_or_more(keyvalue))
 # Example
 result, remaining = keyvalues(Input("x=2; y=3.4; z=.789;"))
 print(result)
-
 ```
 
 ## Related work:
@@ -936,19 +979,22 @@ Programming with combinators is not the most common thing in Python,
 but it can be interesting way to achieve an unusual kind of extreme
 flexibility.
 
-Back in the Python world,
-[PyParsing](https://pyparsing-docs.readthedocs.io/en/latest/) is based
-on a similar set of concepts.  Although not rooted in functional
-programming, PyParsing provides objects, operators, and primitives
-that allow parsers to be built within a very similar conceptual
-framework.
+Back in the Python world,  there are a number of parsing related
+tools built on similar concepts.  Most of these provide more bells
+and whistles, but may be worth a look:
+
+* [PyParsing](https://pyparsing-docs.readthedocs.io/en/latest/)
+* [parsy](https://parsy.readthedocs.io/en/latest/overview.html)
+* [reparsec](https://github.com/ethframe/reparsec)
+* [parsita](https://github.com/drhagen/parsita)
 
 ## Various Thoughts
 
 Over the last twenty years, I've done a lot with parsing in Python.
 This has included the development of several LALR(1) parser generator
-packages and the teaching of a [compilers course](https://www.dabeaz.com/compiler.html)
-where I usually have students write a recursive descent parser.  Although I had heard the
+packages and the teaching of a [compilers
+course](https://www.dabeaz.com/compiler.html) where I usually have
+students write a recursive descent parser.  Although I had heard the
 words "parser combinator" uttered before, it's not something I had any
 first-hand experience with until recently.
 
@@ -971,8 +1017,10 @@ on function composition as opposed to function implementation.
 
 As an aside, sometimes people ask me "what can I do to improve my Python
 skills?"  Much to their surprise, I often suggest doing a project in a
-completely different language or outside of their area of expertise.
-You'll almost always walk away with new ideas when you do that.
+completely different language or outside of their area of expertise. I
+think the main benefit of doing this is that you'll often see a completely
+different way of thinking about a problem that you can bring home to
+your own projects.
 
 ## Final Words: Would I Actually Use This?
 
@@ -980,7 +1028,7 @@ As noted, I learned of this technique by way of Haskell.  However, I
 later went on to apply it to the Python implementation of my compiler
 class project.  The resulting parser was about half the size of a
 hand-written recursive descent parser and involved fewer concepts.
-The code also almost directly reflected the language grammar which
+The resulting code also directly reflected the language grammar which
 had been specified using a PEG.  Last, but not least, the new
 implementation turned out to have a number of desirable properties
 related to error handling and error messages.  In the end, I liked
