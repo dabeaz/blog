@@ -342,7 +342,7 @@ Here's an example:
 
 ```pycon
 >>> left(letter, digit)('a4')
-('4', '')
+('a', '')
 >>> right(letter, digit)('a4')
 ('4', '')
 >>>
