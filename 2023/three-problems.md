@@ -987,6 +987,7 @@ and whistles, but may be worth a look:
 * [parsy](https://parsy.readthedocs.io/en/latest/overview.html)
 * [reparsec](https://github.com/ethframe/reparsec)
 * [parsita](https://github.com/drhagen/parsita)
+* (Add more to the list... submit a PR).
 
 ## Various Thoughts
 
@@ -1014,6 +1015,12 @@ have put things together in a slightly different way.  However, the
 code still embodies the general big idea.  I've also written the
 Python code in a largely "equational style" that reflects the emphasis
 on function composition as opposed to function implementation.
+
+I'm struck by the raw minimalism and expressiveness of the code. There is
+no advanced metaprogramming, operator overloading, or even any classes.
+If you want to see how it works, the code is right there to look at.
+Most of the functions are tiny.  They way that they compose together
+is pretty awesome.
 
 As an aside, sometimes people ask me "what can I do to improve my Python
 skills?"  Much to their surprise, I often suggest doing a project in a
