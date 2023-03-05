@@ -174,6 +174,20 @@ False
 >>>
 ```
 
+Naturally, you can continue to simply things. To match individual characters,
+you could write a helper like this:
+
+```python
+char = lambda v: literal(v)(shift)
+```
+
+```pycon
+>>> dot = char('.')
+>>> dot('.456')
+('.', '456')
+>>>
+```
+
 Just as the purpose of `filt()` is to ignore things, the opposite of
 ignoring something is to do something.  Hence, we need an
 opposing force to keep the code balanced.  Let's call that
@@ -428,7 +442,7 @@ integers to a Python integer and decimals to a Python float.  How
 would you parse any number? Here's how you might do it:
 
 ```python
-dot = literal('.')(shift)
+dot = char('.')
 digit = filt(str.isdigit)(shift)
 digits = fmap(''.join)(one_or_more(digit))
 decdigits = fmap(''.join)(choice(
@@ -468,10 +482,11 @@ parts (which should be ignored).  Here's how you might do it:
 letter = filt(str.isalpha)(shift)
 letters = fmap(''.join)(one_or_more(letter))
 ws = zero_or_more(filt(str.isspace)(shift))
-eq = left(literal('=')(shift), ws)
-semi = left(literal(';')(shift), ws)
-name = left(letters, ws)
-value = left(number, ws)
+token = lambda p: right(ws, p)
+eq = token(char('='))
+semi = token(char(';'))
+name = token(letters)
+value = token(number)
 keyvalue = seq(left(name, eq), left(value, semi))
 ```
 
@@ -479,15 +494,14 @@ Let's try it out:
 
 ```
 >>> keyvalue('xyz=123;')
-(('xyz', 123), '')
+(['xyz', 123], '')
 >>> keyvalue('   pi = 3.14  ;')
-(('pi', 3.14), '')
+(['pi', 3.14], '')
 >>>
 ```
 
 The handling of whitespace might require a bit of study. The key is
-the use of the `left()` function to accept, but discard trailing
-whitespace.
+the use of a special `token()` function to discard leading whitespace.
 
 ## Example: Building a dictionary
 
@@ -635,8 +649,8 @@ And here's how it worked:
 
 This is not an efficient way to process text in Python. In fact, it's
 probably the worst way to process text that you could devise.  When
-running a test on my machine, parsing a string with 100000 key-value pairs
-into a dictionary takes almost 2.5 minutes!
+running a test on my machine, parsing a string with 100000 key-value
+pairs into a dictionary takes almost 2.5 minutes! Alas!
 
 The central problem is the memory copy that takes place when computing
 `inp[1:]`.  In fact, every call to `shift()` makes a nearly
@@ -745,7 +759,7 @@ A lexer produces tokens, not characters.  For example:
 ```
 
 Could we use our parsing framework with such a tokenizer?  Certainly!
-To do this, we'll replace the low-level character handling to use
+To do this, you'll replace the low-level character handling to use
 tokens, but other keep the rest of the parser intact.  Here's
 a new parser:
 
@@ -756,8 +770,7 @@ name = expect('NAME')
 integer = fmap(int)(expect('INTEGER'))
 decimal = fmap(float)(expect('FLOAT'))
 value = choice(decimal, integer)
-keyvalue = fmap(lambda p: (p[0], p[2]))\
-           (seq(name, expect('EQ'), value, expect('SEMI')))
+keyvalue = seq(left(name, expect('EQ')), left(value, expect('SEMI')))
 keyvalues = fmap(dict)(zero_or_more(keyvalue))
 
 Input = lambda inp: (list(KVLexer().tokenize(inp)), 0)
@@ -835,6 +848,11 @@ As a last resort, I decided to reimplement the whole parser using PLY which
 has a more optimized implementation.  That runs in about 1.2 seconds. It loses
 as well.
 
+Stepping back, it's not my goal to perform a detailed performance analysis
+here--there are many pathological corner cases where this new approach
+can run into trouble.  The main takeaway is that it's a lot faster than
+I thought it would be.
+
 ## Digression: Iteration
 
 In Python, the concept of iteration is well defined.  It is reasonable
@@ -893,6 +911,7 @@ filt = lambda predicate: (
            lambda inp: (m:=parser(inp)) and predicate(m[0]) and m)
 
 literal = lambda value: filt(lambda v: v==value)
+char = lambda value: literal(value)(shift)
 
 fmap = lambda func: (
          lambda parser:
@@ -931,12 +950,8 @@ Input = lambda inp: (inp, 0)
 
 # -- Example: Convert "key1=value1; key2=value2; ..." into a dict
 
-# literals
-dot = literal('.')(shift)
-eq = literal('=')(shift)
-semi = literal(';')(shift)
-
 # numbers and values
+dot = char('.')
 digit = filt(str.isdigit)(shift)
 digits = fmap(''.join)(one_or_more(digit))
 decdigits = fmap(''.join)(choice(
@@ -954,10 +969,13 @@ letters = fmap(''.join)(one_or_more(letter))
 
 # Whitespace
 ws = zero_or_more(filt(str.isspace)(shift))
+token = lambda p: right(ws, p)
 
-# Name and value tokens (removed whitespace)
-name = left(letters, ws)
-value = left(number, ws)
+# Tokens (removed whitespace)
+eq = token(char('='))
+semi = token(char(';'))
+name = token(letters)
+value = token(number)
 
 # Single key=value; pair
 keyvalue = seq(left(name, eq), left(value, semi))
@@ -1018,8 +1036,8 @@ on function composition as opposed to function implementation.
 
 I'm struck by the raw minimalism and expressiveness of the code. There is
 no advanced metaprogramming, operator overloading, or even any classes.
-If you want to see how it works, the code is right there to look at.
-Most of the functions are tiny.  They way that they compose together
+If you want to see how everything works, the code is right there to look at.
+Most of the functions are tiny.  The way that they compose together
 is pretty awesome.
 
 As an aside, sometimes people ask me "what can I do to improve my Python
