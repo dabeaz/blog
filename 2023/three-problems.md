@@ -88,7 +88,7 @@ nothing = lambda inp: (None, inp)
 Plus, it prevents people from trying to add meaningful names,
 documentation or type-hints to the thing that is about to unfold.
 
-By the way, `lambda` is the third problem.  Shifting nothingness and
+By the way, `lambda` is the third problem.  Shifting, nothingness, and
 lambda--the three problems.  Let's proceed.
 
 ## A Parsing System
@@ -174,7 +174,7 @@ False
 >>>
 ```
 
-Naturally, you can continue to simply things. To match individual characters,
+Naturally, you can continue to simplify things. To match individual characters,
 you could write a helper like this:
 
 ```python
@@ -552,7 +552,7 @@ characters, but now it's being applied to dictionaries.
 ## Discussion: Composability
 
 The essential feature that makes everything work is an attention to
-composibility. At the core, this is the interface to a parser:
+composability. At the core, this is the interface to a parser:
 
 ```python
 def parser(inp):
@@ -795,7 +795,7 @@ the LALR(1) parser in some of my other tools like
 [PLY](https://github.com/dabeaz/ply) and
 [SLY](https://github.com/dabeaz/sly).  Seriously, I spent a **LOT** of
 time staring at that code trying to remove every last bit of
-performance overhead I could think to identify.  As such, these tools
+performance overhead I could identify.  As such, these tools
 have long been one of the fastest pure-Python parser implementations
 around.  How would this new approach compare to THAT?
 
@@ -997,7 +997,7 @@ Programming with combinators is not the most common thing in Python,
 but it can be interesting way to achieve an unusual kind of extreme
 flexibility.
 
-Back in the Python world,  there are a number of parsing related
+Back in the Python world,  there are a number of parsing-related
 tools built on similar concepts.  Most of these provide more bells
 and whistles, but may be worth a look:
 
@@ -1017,7 +1017,7 @@ students write a recursive descent parser.  Although I had heard the
 words "parser combinator" uttered before, it's not something I had any
 first-hand experience with until recently.
 
-This past January, I decided that I'd try to implement my [compilers
+This past January (2023), I decided that I'd try to implement my [compilers
 class](https://www.dabeaz.com/compiler.html) project in Haskell as a
 side project. Having never programmed Haskell before, I had to
 entirely rewire part of my brain.  To help, I started working from the 
