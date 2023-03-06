@@ -88,7 +88,7 @@ nothing = lambda inp: (None, inp)
 Plus, it prevents people from trying to add meaningful names,
 documentation or type-hints to the thing that is about to unfold.
 
-By the way, `lambda` is the third problem.  Shifting nothingness, and
+By the way, `lambda` is the third problem.  Shifting nothingness and
 lambda--the three problems.  Let's proceed.
 
 ## A Parsing System
