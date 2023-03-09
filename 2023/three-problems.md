@@ -322,7 +322,7 @@ def seq(*parsers):
     def parse(inp):
         result = [ ]
         for p in parsers:
-            if not (m:=p(inp, n)):
+            if not (m:=p(inp)):
                 return False
             value, inp = m
             result.append(value)
