@@ -6,7 +6,7 @@ Hi, I'm [Dave](https://dabeaz.com).  This is my blog about various programming r
 * [Talks](https://dabeaz.com/talks.html)
 * [Practical Python Course](https://dabeaz-course.github.io/practical-python)
 
-If you want something more advanced, consider taking one of [CS courses](https://www.dabeaz.com/courses.html).
+If you want something more advanced, consider taking one of my [CS courses](https://www.dabeaz.com/courses.html).
 
 After a multi-year hiatus from blogging, this is a bit of an experiment in hosting a blog solely in the form of a GitHub repo.  Posts are in reverse chronological order.
 
