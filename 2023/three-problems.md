@@ -1005,6 +1005,7 @@ and whistles, but may be worth a look:
 * [parsy](https://parsy.readthedocs.io/en/latest/overview.html)
 * [reparsec](https://github.com/ethframe/reparsec)
 * [parsita](https://github.com/drhagen/parsita)
+* [Hypothesis](https://hypothesis.readthedocs.io/en/latest/) strategies are combinators
 * (Add more to the list... submit a PR).
 
 ## Various Thoughts
