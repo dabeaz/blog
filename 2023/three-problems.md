@@ -25,7 +25,7 @@ function to do that:
 
 ```python
 def shift(inp):
-    return bool(inp) and (inp[0], inp[1:])
+    return inp and (inp[0], inp[1:])
 ```
 
 Given an input sequence `inp`, this returns the first item `inp[0]` and all of
