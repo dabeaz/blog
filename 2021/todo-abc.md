@@ -122,12 +122,15 @@ I concur. In the end, you're probably not even going to need that abstract base 
 
 ## Discussion
 
-No comments.  Want to make a comment?  Edit this page. Then submit a pull request. 
+> I would argue that it's odd to publish code with an unfinished implementation at all. Why add the methods if you won't implement them yet?
+> 
+> However, if you really want to do this - why not just use the `NotImplementedError`? From [python's docs](https://docs.python.org/3/library/exceptions.html#NotImplementedError): abstract methods should raise this exception when they require derived classes to override the method, or while the class is being developed to indicate that the real implementation still needs to be added.
+>
+> It feels quite wacky to deliberately cause a syntax error when an exception also terminates the code, can contain additional context, and is used elsewhere. This approach even allows you to catch the error with a readable `except NotImplementedError:` statement.
+>
+> \- DomHudson
 
-
-
-
-
+ Want to make a comment?  Edit this page. Then submit a pull request. 
 
 
 
