@@ -24,12 +24,12 @@ function:
 
 class A:
     def yow(self):
-	    print('A.yow')
-		
+        print('A.yow')
+        
 class B:
     def spam(self):
-	    print('B.spam')
-		
+        print('B.spam')
+        
 def blah():
     print('blah')
 ```
@@ -158,12 +158,12 @@ from .util import *
 # Now the real code
 class A:
     def yow(self):
-	    print('A.yow')
-		
+        print('A.yow')
+        
 class B:
     def spam(self):
-	    print('B.spam')
-		
+        print('B.spam')
+        
 def blah():
     print('blah')
 ```
