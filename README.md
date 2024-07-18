@@ -12,7 +12,7 @@ After a multi-year hiatus from blogging, this is a bit of an experiment in hosti
 
 ## 2024
 
-* [How to Put All of Your Code in `__init__.py`](2024/one-file.md) (July 18, 2024)
+* [How to Put Everything in `__init__.py`](2024/one-file.md) (July 18, 2024)
 
 ## 2023
 
