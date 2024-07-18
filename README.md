@@ -5,6 +5,7 @@ Hi, I'm [Dave](https://dabeaz.com).  This is my blog about various programming r
 * [Tutorials](https://dabeaz.com/tutorials.html)
 * [Talks](https://dabeaz.com/talks.html)
 * [Practical Python Course](https://dabeaz-course.github.io/practical-python)
+* [Advanced Python Mastery](https://github.com/dabeaz-course/python-mastery)
 
 If you want something more advanced, consider taking one of my [CS courses](https://www.dabeaz.com/courses.html).
 
