@@ -10,6 +10,10 @@ If you want something more advanced, consider taking one of my [CS courses](http
 
 After a multi-year hiatus from blogging, this is a bit of an experiment in hosting a blog solely in the form of a GitHub repo.  Posts are in reverse chronological order.
 
+## 2024
+
+* [How to Put All of Your Code in `__init__.py`](2024/one-file.md) (July 18, 2024)
+
 ## 2023
 
 * [Now You Have Three Problems](2023/three-problems.md) (March 3, 2023)
