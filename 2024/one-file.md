@@ -50,8 +50,10 @@ from .b import *
 As an example, you can look at [`__init__.py`](https://github.com/python/cpython/blob/main/Lib/asyncio/__init__.py) from `asyncio`.
 
 However, that's not what we're doing here.  Instead of `__init__.py`
-importing definitions from a submodule, I want to make submodules
-import definitions from `__init__.py`.   Since that's a slightly different
+importing definitions from a submodule, I only want to make it *appear*
+as if code is properly spread out across submodules when, in fact, it is
+not.   To do this, I want to create a kind of "fake" submodule that actually
+imports its definitions from `__init__.py`.  Since that's a slightly different
 idea, I'm going to call such submodules a "cosubmodule."
 
 To do that, make your cosubmodule look like this:
@@ -98,8 +100,8 @@ since that's where everything ultimately links.
 You'll now be able to import things exactly as you wished it worked:
 
 ```python
->>> from ipyp import a
->>> from ipyp import b
+>>> from ipyp.a import A
+>>> from ipyp.b import B
 >>> from ipyp.funcs import blah
 >>> a = A()
 >>> a.yow()
