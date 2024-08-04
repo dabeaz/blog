@@ -232,7 +232,24 @@ If anything, keeping things simple is often a good policy.  If you start off wit
 
 ## Discussion
 
-No comments.  Want to make a comment?  Edit this page. Then submit a pull request. 
+@icing: the dimension in code most overlooked is time. the interface/baseclass will need to evolve in ways
+inforeseen today. If it is 'private', not visible outside your module/package, you retain every freedom to
+modify both in any way.
+
+If your interface/baseclass is visible to the outside, the interface is orders of magnitude less dangerous
+to change than the 'abstract' base class. Especially when the abstract baseclass has any 'default' implementation
+of a method (the 'code reuse' pit). These default implementation parts are never documented, and yet are part
+of the contract to any inheritor of the base class.
+
+The most brittle is the initialisation phase. When the constructors run top to bottom, it is often assumed
+that all methods function that are part of the interface. Most implementation inheritancers become very surprised
+when their class methods get called before the constructor has run.
+
+Lots of pitfalls in your own code, but when the hierarchy is split among release lines, the behaviour
+of the "other side" can change any time and break you. Not worth it.
+
+
+Want to make a comment?  Edit this page. Then submit a pull request. 
 
 
 
